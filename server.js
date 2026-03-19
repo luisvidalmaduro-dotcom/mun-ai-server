@@ -37,6 +37,7 @@ app.post("/chat", async (req, res) => {
     });
 
     const data = await response.json();
+    console.log("RESPUESTA OPENAI:", data);
 
     if (!data.choices) {
       return res.json({
