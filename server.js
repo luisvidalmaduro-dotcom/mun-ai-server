@@ -1,3 +1,4 @@
+
 import express from "express";
 import cors from "cors";
 import fetch from "node-fetch";
@@ -7,8 +8,8 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔑 TU API KEY AQUÍ
-const API_KEY = "TU_API_KEY_AQUI";
+// 🔐 API KEY SEGURA DESDE RENDER
+const API_KEY = process.env.OPENAI_API_KEY;
 
 app.post("/chat", async (req, res) => {
   try {
@@ -25,7 +26,7 @@ app.post("/chat", async (req, res) => {
         messages: [
           {
             role: "system",
-            content: "Eres un entrenador experto en Modelos de Naciones Unidas en República Dominicana (nivel regional y MINUME). Respondes con estrategias claras, prácticas, profundas y competitivas. Das pasos concretos y ejemplos reales."
+            content: "Eres un entrenador élite de Modelos de Naciones Unidas en República Dominicana (regional y MINUME). Das respuestas profundas, estratégicas, prácticas y enfocadas en ganar premios."
           },
           {
             role: "user",
@@ -37,17 +38,26 @@ app.post("/chat", async (req, res) => {
 
     const data = await response.json();
 
+    if (!data.choices) {
+      return res.json({
+        reply: "❌ Error en la IA. Revisa tu API Key o configuración."
+      });
+    }
+
     res.json({
       reply: data.choices[0].message.content
     });
 
   } catch (error) {
     res.json({
-      reply: "Error conectando con la IA"
+      reply: "❌ Error conectando con el servidor."
     });
   }
 });
 
-app.listen(3000, () => {
-  console.log("🔥 Servidor listo en http://localhost:3000");
+// PUERTO DINÁMICO (IMPORTANTE PARA RENDER)
+const PORT = process.env.PORT || 3000;
+
+app.listen(PORT, () => {
+  console.log(`🔥 Servidor corriendo en puerto ${PORT}`);
 });
