@@ -1,0 +1,17 @@
+{
+  "name": "mun-ai-server",
+  "version": "1.0.0",
+  "description": "Servidor IA para chatbot MUN RD",
+  "main": "server.js",
+  "type": "module",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "Luis Angel Vidal Maduro",
+  "license": "MIT",
+  "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.2"
+  }
+}
